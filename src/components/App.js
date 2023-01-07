@@ -1,8 +1,8 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import addCounterAction, {subtractCounterAction, addCounterByAction} from './actions/counterActions';
+import addCounterAction, {subtractCounterAction, addCounterByAction} from '../actions/counterActions';
 
 function App(props) {
   const {
