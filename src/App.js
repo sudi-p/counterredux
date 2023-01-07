@@ -1,25 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import addCounterAction, {subtractCounterAction, addCounterByAction} from './actions/counterActions';
 
-function App() {
+function App(props) {
+  const {
+    counter,
+    addCounterAction: addCounter,
+    subtractCounterAction: subtractCounter,
+    addCounterByAction: addCounterBy,
+  } = props;
+  const [ num, setNum ] = useState(0)
+  const { count } = counter;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="counterWrapper">
+      <div className="counterDisplay">
+        {count}
+      </div>
+      <div className="counterButtons">
+        <div onClick={addCounter} className="counterButton">
+          +
+        </div>
+        <div onClick={subtractCounter} className="counterButton">
+          -
+        </div>
+        <div onClick={() => addCounterBy(parseInt(num, 10))} className="counterButton">
+          Increment by <input onChange={e => setNum(e.target.value)} value={num} />
+        </div>
+      </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  counter: state.counter,
+})
+
+export default connect(mapStateToProps, {addCounterAction, subtractCounterAction, addCounterByAction})(App);
